@@ -1,2 +1,3 @@
-1- new user
-2- login
+
+Writen By Aws Idris
+1 - Finish account creation and login
