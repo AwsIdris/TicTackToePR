@@ -1,5 +1,5 @@
 {
-  "name": "loginapp",
+  "name": "TicTackToe",
   "version": "1.0.0",
   "description": "Simple authentication system",
   "main": "app.js",
@@ -7,7 +7,7 @@
     "start": "node app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Brad Traversy",
+  "author": "Aws  Idris",
   "license": "ISC",
   "dependencies": {
     "bcryptjs": "*",
@@ -21,6 +21,7 @@
     "express-validator": "*",
     "mongodb": "*",
     "mongoose": "^4.10.8",
+    "mongoose-unique-validator": "^1.0.6",
     "passport": "*",
     "passport-http": "*",
     "passport-local": "*"
