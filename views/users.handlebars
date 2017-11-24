@@ -1,0 +1,43 @@
+<div id="userlistcontainer">
+        <h4 class="select-player">Select a Player</h4>
+        <div id="userlist">aws ssssss</div>
+
+
+</div>
+
+
+ <script type="text/javascript" > 
+
+
+ var socket= io.connect("http://localhost:3000");
+ //console.log("fromusers.handelbars",userEmail);
+ 
+
+ var userlist1 = document.getElementById('userlist');
+
+ var btn = document.getElementById('send');
+ socket.emit("userlist",{
+           user:"newuser"
+        })
+      
+
+ 
+
+
+ //listen for event
+ socket.on("userlist", function(data){
+         userlist.innerHTML='';
+         
+         for(i=0;i<data.length;i++){
+                      
+                          userlist1.innerHTML += '<button class="playerslistbtn" name="button" onclick="alert("aws")">'+data[i]+'</button></br>';
+                      
+         }
+ })
+ 
+ </script>
+
+
+
+
+

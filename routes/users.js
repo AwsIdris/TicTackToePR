@@ -1,14 +1,16 @@
 var express = require('express');
+
 var router = express.Router();
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 const { check, validationResult } = require('express-validator/check');
 const { matchedData, sanitize } = require('express-validator/filter');
-
+var loggedInUsers=[];
 
 var uniqueValidator = require('mongoose-unique-validator');
 
 var User = require('../models/user');
+
 
 // Register
 router.get('/register', function(req, res){
@@ -22,7 +24,7 @@ router.get('/login', function(req, res){
 
 // Register User
 router.post('/register', function(req, res){
-	//var name = req.body.name;
+
 	var email = req.body.email;
 	var username = req.body.username;
 	var password = req.body.password;
@@ -60,7 +62,7 @@ router.post('/register', function(req, res){
 		});
 	} else {
 		var newUser = new User({
-		//	name: name,
+
 			email:email,
 			username: username,
 			password: password,
@@ -88,12 +90,24 @@ passport.use(new LocalStrategy(
    	User.comparePassword(password, user.password, function(err, isMatch){
    		if(err) throw err;
    		if(isMatch){
+			    //push logged in user email to array 
+				onlineUsers= loggedInUsers.push(email);
+				//updateOnlineUsers(onlineUsers);
+				
+   console.log('list of logged inusers')
+	 /// console.log('list of loged inusers : ',email)
+	 loggedInUsers.map(function(x){
+		 console.log(x);
+	 })
+	 console.log("======================");
+   
    			return done(null, user);
    		} else {
    			return done(null, false, {message: 'Invalid password'});
    		}
    	});
    });
+  
   }));
 
 passport.serializeUser(function(user, done) {
@@ -113,11 +127,32 @@ router.post('/login',
   });
 
 router.get('/logout', function(req, res){
+	
+	// remove the logged out user fro the array.
+	var em=req.user['email'];
+	var index = loggedInUsers.indexOf(em);
+	if (index > -1) {
+		loggedInUsers.splice(index, 1);
+		
+	}
+	//updateOnlineUsers(onlineUsers);
+	console.log('the user with the email:',em,' has been logged out')
+	if (loggedInUsers.length>0){	
+		loggedInUsers.map(function(x){
+		console.log('loged in user',x);
+		
+		})
+	}else{console.log('their is no user loggedin')}
 	req.logout();
+
 
 	req.flash('success_msg', 'You are logged out');
 
 	res.redirect('/users/login');
 });
+// function updateOnlineUsers(onlineUsers){
+// 	return onlineUsers;
+// }
 
-module.exports = router;
+module.exports = router;//
+module.exports.usersEmails  =loggedInUsers;

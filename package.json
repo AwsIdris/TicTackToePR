@@ -1,10 +1,11 @@
 {
-  "name": "TicTackToe",
+  "name": "ticktacktoe",
+  
   "version": "1.0.0",
   "description": "Simple authentication system",
   "main": "app.js",
   "scripts": {
-    "start": "node app.js",
+    "start": "nodemon app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Aws  Idris",
@@ -24,6 +25,7 @@
     "mongoose-unique-validator": "^1.0.6",
     "passport": "*",
     "passport-http": "*",
-    "passport-local": "*"
+    "passport-local": "*",
+    "socket.io": "^2.0.4"
   }
 }

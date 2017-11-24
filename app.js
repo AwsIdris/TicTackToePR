@@ -1,4 +1,5 @@
 var express = require('express');
+var socket = require('socket.io');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
@@ -17,9 +18,17 @@ var db = mongoose.connection;
 var routes = require('./routes/index');
 var users = require('./routes/users');
 
+
+
+
 // Init App
 var app = express();
+// Set Port
+app.set('port', (process.env.PORT || 3000));
 
+var server =app.listen(app.get('port'), function(){
+	console.log('Server started on port '+app.get('port'));
+});
 // View Engine
 app.set('views', path.join(__dirname, 'views'));
 app.engine('handlebars', exphbs({defaultLayout:'layout'}));
@@ -83,9 +92,43 @@ app.use(function (req, res, next) {
 app.use('/', routes);
 app.use('/users', users);
 
-// Set Port
-app.set('port', (process.env.PORT || 3000));
+// Setup Socket IO
+var io = socket(server);
+// io.on('disconnect', function () {
+  
+ io.on('userlist',function(data){
+   var onlineusers=users.usersEmails;
+    
+    io.sockets.emit('userlist',onlineusers);
+     })
+         // socket.emit('userlist');
+        // online = online - 1;
+  
+  //  });
 
-app.listen(app.get('port'), function(){
-	console.log('Server started on port '+app.get('port'));
-});
+io.on('connection', function(socket){
+  
+ 
+ console.log("++++++++++");
+
+  socket.on('userlist',function(data){
+    var onlineusers=users.usersEmails;
+    io.sockets.emit('userlist',onlineusers);
+    console.log('Mad socket connection no:', socket.id);
+    onlineusers.map(function(x){
+     console.log('from connection',x);
+    })
+   
+    
+    
+  })
+  socket.on('disconnect', function () {
+
+    var onlineusers=users.usersEmails;
+    
+    io.sockets.emit('userlist',onlineusers);
+
+  });
+
+})
+

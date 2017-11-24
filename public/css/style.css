@@ -137,3 +137,25 @@ td {
   background-image: url("../image/1.jpg");
   background-color: #be2bab;
 }
+.select-player{
+  padding-bottom: 2px;
+  color: rgb(206, 33, 33);
+  background-color:rgb(138, 139, 219);
+  border-bottom: 1px solid darkgray;
+}
+#userlistcontainer{
+  max-width: 200px;
+  min-width: 100px;
+  padding:5px;
+  border: 2px double blue;
+}
+.playerslistbtn
+{
+  width:190px;
+  
+  
+}
+.playerslistbtn:hover{
+  color:rgb(247, 246, 250);
+  background-color: rgb(16, 16, 211)
+}
