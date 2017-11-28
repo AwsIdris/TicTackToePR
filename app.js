@@ -109,7 +109,7 @@ var io = socket(server);
 io.on('connection', function(socket){
   
  
- console.log("++++++++++");
+ //console.log("++++++++++");
 
   socket.on('userlist',function(data){
     var onlineusers=users.usersEmails;

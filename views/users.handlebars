@@ -6,43 +6,67 @@
  
 
     <script type="text/babel">
+    
     var socket= io.connect("http://localhost:3000");
+    console.log("it is a babel code");
+     var lists=[];
+    
     socket.emit("userlist",{
            user:"newuser"
+        });
+        var lists=[];
+
+       socket.on("userlist", function(data){ 
+                console.log("socket.on");
+                lists=data;
+                console.log('before if statment',lists)
+                if(lists===[]){
+                      lists=['No Users'];
+
+                 } 
+                 //else {
+                   //var renderlis=lists.map(x=> <h3>x</h3>)
+
+                // }
+                  console.log('bbbbbbbbbbbbbbbbbb');
         })
-//+++++++++++++++++
-
- socket.on("userlist", function(data){ console.log("socket.on");var lists=data.map(x => x);})
-
-//++++++++++++++++++++++
+       
+                        
+        
+         
+       
+    
+                   
 
  
  var OnlineUsers = React.createClass({
+        
+           
+        
       
-           render:function(){
-                       
-                
+render:function(){
                    return(
                            <div>
-                                 <h2>On line Aws</h2>
-                                 <h3>{this.props.lists}</h3>
-           
+                                
+                                 <h2>Hellllo OnlineUsers</h2>,
+                                 <h3>{this.props.usersLists}</h3>
+                                 
                            </div>
-                  )
-                   
-           }
+                   ) 
+        }                  
+           
 
  })
  //+++++++++++++++++++++++++++++++++
 
   
-   var Post =React.createClass({
+   var App =React.createClass({
            render:function(){
                    return(
                            <div>
                                 
-                                 <h2>Hellllo Aws</h2>,
-                                 <OnlineUsers />
+                                 <h2>Hellllo Post</h2>,
+                                 <OnlineUsers usersLists={lists}/>
                            </div>
                    )
                    
@@ -50,7 +74,7 @@
    });   
 
       ReactDOM.render(
-        <Post />,
+        <App />,
         
         
       
@@ -60,7 +84,7 @@
     </script>
 
 
- <script type="text/javascript" > 
+ {{!-- <script type="text/javascript" > 
 
 
  var socket= io.connect("http://localhost:3000");
@@ -73,13 +97,11 @@
  var userlist1 = document.getElementById('userlist');
 
  var btn = document.getElementById('send');
+ 
  socket.emit("userlist",{
            user:"newuser"
         })
-      
-
  
-
 
  //listen for event
  socket.on("userlist", function(data){
@@ -92,9 +114,4 @@
          }
  })
  
- </script>
-
-
-
-
-
+ </script> --}}
