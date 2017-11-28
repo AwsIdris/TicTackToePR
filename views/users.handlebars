@@ -1,9 +1,63 @@
 <div id="userlistcontainer">
         <h4 class="select-player">Select a Player</h4>
-        <div id="userlist">aws ssssss</div>
-
-
+        <div id="userlist"></div>
+        <div id="root"></div>
 </div>
+ 
+
+    <script type="text/babel">
+    var socket= io.connect("http://localhost:3000");
+    socket.emit("userlist",{
+           user:"newuser"
+        })
+//+++++++++++++++++
+
+ socket.on("userlist", function(data){ console.log("socket.on");var lists=data.map(x => x);})
+
+//++++++++++++++++++++++
+
+ 
+ var OnlineUsers = React.createClass({
+      
+           render:function(){
+                       
+                
+                   return(
+                           <div>
+                                 <h2>On line Aws</h2>
+                                 <h3>{this.props.lists}</h3>
+           
+                           </div>
+                  )
+                   
+           }
+
+ })
+ //+++++++++++++++++++++++++++++++++
+
+  
+   var Post =React.createClass({
+           render:function(){
+                   return(
+                           <div>
+                                
+                                 <h2>Hellllo Aws</h2>,
+                                 <OnlineUsers />
+                           </div>
+                   )
+                   
+           }
+   });   
+
+      ReactDOM.render(
+        <Post />,
+        
+        
+      
+        document.getElementById('root')
+      );
+
+    </script>
 
 
  <script type="text/javascript" > 
@@ -11,6 +65,9 @@
 
  var socket= io.connect("http://localhost:3000");
  //console.log("fromusers.handelbars",userEmail);
+ socket.emit("userlist",{
+           user:"newuser"
+        })
  
 
  var userlist1 = document.getElementById('userlist');
