@@ -10,11 +10,12 @@
     var socket= io.connect("http://localhost:3000");
     console.log("it is a babel code");
      var lists=[];
+     var renderlist=[];
     
     socket.emit("userlist",{
            user:"newuser"
         });
-        var lists=[];
+       
 
        socket.on("userlist", function(data){ 
                 console.log("socket.on");
@@ -24,32 +25,29 @@
                       lists=['No Users'];
 
                  } 
-                 //else {
-                   //var renderlis=lists.map(x=> <h3>x</h3>)
-
-                // }
-                  console.log('bbbbbbbbbbbbbbbbbb');
-        })
-       
-                        
-        
-         
-       
-    
+                 else {
+               // renderlist=data;
+                   
                    
 
- 
+                }
+                  console.log('bbbbbbbbbbbbbbbbbb lists',lists);
+
+
+                  //+++++++++++++++++++++++++
  var OnlineUsers = React.createClass({
         
-           
         
       
 render:function(){
+        
+           renderlist=lists.map(function(x){ return (<a href="#" key={x}><h4 >{x}</h4></a>)});
+         
                    return(
                            <div>
                                 
                                  <h2>Hellllo OnlineUsers</h2>,
-                                 <h3>{this.props.usersLists}</h3>
+                                 {renderlist}
                                  
                            </div>
                    ) 
@@ -65,8 +63,8 @@ render:function(){
                    return(
                            <div>
                                 
-                                 <h2>Hellllo Post</h2>,
-                                 <OnlineUsers usersLists={lists}/>
+                                
+                                 <OnlineUsers />
                            </div>
                    )
                    
@@ -81,6 +79,22 @@ render:function(){
         document.getElementById('root')
       );
 
+                  
+                  //++++++++++++++++++++
+        })
+        
+
+       
+       
+                  
+        
+         
+       
+    
+                   
+
+ 
+ 
     </script>
 
 
