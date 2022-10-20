@@ -21,7 +21,7 @@
     "express-session": "*",
     "express-validator": "*",
     "mongodb": "*",
-    "mongoose": "^4.10.8",
+    "mongoose": "^4.13.21",
     "mongoose-unique-validator": "^1.0.6",
     "passport": "*",
     "passport-http": "*",
